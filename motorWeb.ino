@@ -52,6 +52,10 @@ Latest commit 1f0bb83 on Mar 11, 2018
 #define STEER_MOTOR_POWER D1 // Motor A
 #define STEER_MOTOR_DIRECTION D3
 
+#define ARM_CYLIDER_VALVE D5 // Valve to activate arm cylinder
+#define SCOOP_CYLINDER_VALVE D6 // Valve to activate scoop cylider
+#define HITCH_HOOK_CYLINDER D7 // Valve to activate hitch hook cylinder
+
 // drivePower sets how fast the car goes
 // Can be set between 0 and 1023 (although car problaly wont move if values are too low)
 int drivePower = 1023;
@@ -106,6 +110,9 @@ void setup(void){
   pinMode(DRIVE_MOTOR_DIRECTION, OUTPUT);
   pinMode(STEER_MOTOR_POWER, OUTPUT);
   pinMode(STEER_MOTOR_DIRECTION, OUTPUT);
+  pinMode(ARM_CYLIDER_VALVE, OUTPUT);
+  pinMode(SCOOP_CYLINDER_VALVE, OUTPUT);
+  pinMode(HITCH_HOOK_CYLINDER, OUTPUT);
 
   WiFi.mode(WIFI_STA);
   WiFi.disconnect();
@@ -170,6 +177,42 @@ void setup(void){
     Serial.println("steerStop");
     analogWrite(STEER_MOTOR_POWER, 0);
     server.send(200, "text/plain", "steerStop");
+  });
+
+   server.on("/armup", [](){
+    Serial.println("armup");
+    analogWrite(ARM_CYLIDER_VALVE, 1);
+    server.send(200, "text/plain", "armup");
+  });
+
+   server.on("/armstop", [](){
+    Serial.println("armstop");
+    analogWrite(ARM_CYLIDER_VALVE, 0);
+    server.send(200, "text/plain", "armstop");
+  });
+
+  server.on("/scoopdown", [](){
+    Serial.println("scoopdown");
+    analogWrite(SCOOP_CYLINDER_VALVE, 1);
+    server.send(200, "text/plain", "scoopdown");
+  });
+
+   server.on("/scoopup", [](){
+    Serial.println("scoopup");
+    analogWrite(SCOOP_CYLINDER_VALVE, 0);
+    server.send(200, "text/plain", "scoopup");
+  });
+
+  server.on("/hitchunlock", [](){
+    Serial.println("hitchunlock");
+    analogWrite(HITCH_HOOK_CYLINDER, 1);
+    server.send(200, "text/plain", "hitchunlock");
+  });
+
+  server.on("/hitchlock", [](){
+    Serial.println("hitchlock");
+    analogWrite(HITCH_HOOK_CYLINDER, 0);
+    server.send(200, "text/plain", "hitchlock");
   });
 
   server.onNotFound(handleNotFound);
