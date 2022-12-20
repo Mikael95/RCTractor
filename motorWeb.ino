@@ -55,6 +55,7 @@ Latest commit 1f0bb83 on Mar 11, 2018
 #define ARM_CYLIDER_VALVE D5 // Valve to activate arm cylinder
 #define SCOOP_CYLINDER_VALVE D6 // Valve to activate scoop cylider
 #define HITCH_HOOK_CYLINDER D7 // Valve to activate hitch hook cylinder
+#define DRAIN_ARM_CYLINDER_VALVE D8 // Valve to drain air from arm cylinder
 
 // drivePower sets how fast the car goes
 // Can be set between 0 and 1023 (although car problaly wont move if values are too low)
@@ -189,6 +190,13 @@ void setup(void){
     Serial.println("armstop");
     analogWrite(ARM_CYLIDER_VALVE, 0);
     server.send(200, "text/plain", "armstop");
+  });
+
+  server.on("/armdown", [](){
+    Serial.println("armdown");
+    analogWrite(ARM_CYLIDER_VALVE, 0);
+    analogWrite(DRAIN_ARM_CYLINDER_VALVE, 1);
+    server.send(200, "text/plain", "armdown");
   });
 
   server.on("/scoopdown", [](){
