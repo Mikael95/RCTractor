@@ -46,6 +46,14 @@ R"(
         </div>
         <div class="row" style="height: 33.33%; padding-bottom:1em">
           <div class="col-xs-4" style="height: 100%; text-align: center">
+            <button id="left" type="button" class="btn btn-default" style="height: 100%; width: 100%" onmousedown='makeAjaxCall("armUp")' onmouseup='makeAjaxCall("armStop")' ontouchstart='makeAjaxCall("armUp")' ontouchend='makeAjaxCall("armStop")'>Arm up</button>
+          </div>
+          <div class="col-xs-4" style="height: 100%; text-align: center">
+            <button id="left" type="button" class="btn btn-default" style="height: 100%; width: 100%" onmousedown='makeAjaxCall("armDown")' onmouseup='makeAjaxCall("armStop")' ontouchstart='makeAjaxCall("armDown")' ontouchend='makeAjaxCall("armStop")'>Arm down</button>
+          </div>
+        </div>
+        <div class="row" style="height: 33.33%; padding-bottom:1em">
+          <div class="col-xs-4" style="height: 100%; text-align: center">
             <button id="left" type="button" class="btn btn-default" style="height: 100%; width: 100%" onmousedown='makeAjaxCall("left")' onmouseup='makeAjaxCall("steerStop")' ontouchstart='makeAjaxCall("left")' ontouchend='makeAjaxCall("steerStop")'>Left</button>
           </div>
           <div class="col-xs-4" style="height: 100%; text-align: center">
@@ -79,7 +87,26 @@ R"(
           } else if(event.keyCode == 40) {
               //Down Arrow
               makeAjaxCall("back");   
+          } else if(event.keyCode == 100) {
+              //?
+              makeAjaxCall("armup");   
+          } else if(event.keyCode == 101) {
+              //?
+              makeAjaxCall("armdown");   
+          } else if(event.keyCode == 102) {
+              //?
+              makeAjaxCall("scoopdown");   
+          } else if(event.keyCode == 103) {
+              //?
+              makeAjaxCall("scoopup");   
+          } else if(event.keyCode == 104) {
+              //?
+              makeAjaxCall("hitchunlock");   
+          } else if(event.keyCode == 105) {
+              //?
+              makeAjaxCall("hitchlock");   
           }
+          
       });
 
       document.addEventListener('keyup', function(event) {
@@ -90,6 +117,10 @@ R"(
           else if(event.keyCode == 38 ||event.keyCode == 40 ) {
               //Up or Down Arrow
               makeAjaxCall("driveStop");            
+          }
+          else if(event.keyCode == 101) {
+              //arm stop
+              makeAjaxCall("armstop");            
           }
       });
     </script>-->
